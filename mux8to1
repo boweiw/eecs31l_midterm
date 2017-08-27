@@ -1,0 +1,32 @@
+module mux8to1(X, A0, A1,A2, A3,A4,A5,A6,A7,S);
+
+output X;
+
+input A7;
+input A6;
+input A5;
+input A4;
+input A3;
+input A2;
+input A1;
+input A0;
+input [2:0] S;
+
+assign X = (S[2] == 0
+                ?(S[1] ==0
+                        ?(S[0] ==0
+                          ?A0  //000
+                          :A1) //001
+                        :(S[0] ==0
+                          ? A2        //010
+                          : A3))      //011
+                :(S[1]==0
+                  ?(S[0]==0
+                        ? A4      //100
+                        : A5)      //101
+                  : (S[0] == 0
+                     ? A6         //110
+                     : A7)));     //111
+
+endmodule;
+
