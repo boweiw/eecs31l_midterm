@@ -1,0 +1,36 @@
+module alu_1bit(opt1, opt2, opsel, mode, result, c_flag, z_flag, o_flag, s_flag);
+
+
+input logic  op1;
+input logic  op2;
+input logic [2:0] opsel;
+input logic             mode;
+output logic  result;
+output logic  c_flag;
+output logic  z_flag;
+output logic  o_flag;
+output logic  s_flag;
+
+wire A, Swb, M, S, I,D, AnD,AG,OG,XG, C;
+ Add ad(op1,op2,cout,A);
+ SubwB sub(op1,op2,cout,Swb);
+ Move mov(op1,op2,cout,M);
+ Sub sub(op1,op2,cout,S);
+ Increment inc(op1,op2,cout,I);
+ Decrement dec(op1,op2,cout,D);
+ AandD and(op1,op2,cout,AnD);
+ AndG andg(op1,op2,AG);
+ OrG org(op1,op2,OG);
+ Xor xor(op1,op2,XG);
+ Compliment comp(op1,C);
+
+
+wire mode0, mode1;
+mux8to1 muxy(mode0,A,Swb,M,S,I,D,AnD,0,opsel);
+mux8to1 muxz(mode1,AG,OG,XG,C,0,0,0,0,opsel);
+mux2to1 muxs(result, mode0, mode1,mode);
+
+
+
+
+endmodule;
