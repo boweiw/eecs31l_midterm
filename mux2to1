@@ -1,0 +1,11 @@
+module mux2to1(X,A0,A1,S);
+
+output X;
+
+input A1;
+input A2;
+input S;
+
+assign X = (S == 1'b0) ? A0 : A1;
+
+endmodule;
